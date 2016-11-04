@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>QueryPage</title>
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/css/styles.css">
+    </head>
+
+    <form action="query" method="post">
+
+        <div class="col-md-8">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h3 class="panel-title">증권회사</h3></div>
+                <div class="panel-body">
+                    <div class="dropdown">
+                        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+                        <script>
+                            $(function () {
+                                $("#company").change(function () {
+
+                                    var $dropdown = $(this);
+
+                                    $.getJSON("jsondata/data.json", function (data) {
+
+                                        var key = $dropdown.val();
+                                        var vals = [];
+
+                                        switch (key) {
+                                            case 'hiinvest':
+                                                vals = data.hiinvest.split(",");
+                                                break;
+                                            case 'star':
+                                                vals = data.star.split(",");
+                                                break;
+                                            case 'sk':
+                                                vals = data.sk.split(",");
+                                                break;
+                                            case 'KIWOOM':
+                                                vals = data.kiwoom.split(",");
+                                                break;
+                                            case 'base':
+                                                vals = ['Please choose from above'];
+                                        }
+
+                                        var $jsontwo = $("#account");
+                                        $jsontwo.empty();
+                                        $.each(vals, function (index, value) {
+                                            $jsontwo.append("<option>" + value + "</option>");
+                                        });
+                                    });
+                                });
+
+                            });
+                        </script>
+                        <div id="page-wrap">
+
+                            <select name="company" id="company">
+                                <option selected value="base">Please Select</option>
+                                <option value="hiinvest">하이투자증권</option>
+                                <option value="star">스타증권</option>
+                                <option value="sk">SK증권</option>
+                                <option value="KIWOOM">키움증권</option>
+                            </select>
+                            <br/>
+                            <select name="account" id="account">
+                                <option>Please choose from above</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-14">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">조회대상</h3></div>
+                    <div class="panel-body">
+                        <select name="querytype">
+                            <option selected value="base">Please Select</option>
+                            <option value="account">계좌잔고조회</option>
+                            <option value="portfolio">포트폴리오조회</option>
+                            <option value="transaction">거래내역조회</option>
+                            <option value="interest">관심종목조회</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-14">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">수량/비율조회(포트폴리오조회)</h3></div>
+                    <div class="panel-body">
+                        <select name="querycondition">
+                            <option selected value="base">Please Select</option>
+                            <option value="QTY">수량조회</option>
+                            <option value="RAT">비율조회</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-14">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">응답건수제한(0인 경우 무제한)</h3></div>
+                    <div class="panel-body">
+                        <input type="text" class="form-control" placeholder="0">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-14">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">다음페이지번호</h3></div>
+                    <div class="panel-body">
+                        <input type="text" name="pageno" class="form-control" placeholder="0">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-14">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">자산구분</h3></div>
+                    <div class="panel-body">
+                        <select name="assettype">
+                            <option selected value="base">Please Select</option>
+                            <option value="ALL">모두</option>
+                            <option value="CASH">현금</option>
+                            <option value="EQTY">현물</option>
+                            <option value="FUND">펀드</option>
+                            <option value="ETC">기타</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <br>
+            <div class="clearfix"></div>
+            <script src="assets/js/jquery.min.js"></script>
+            <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+            <input type="submit" value="조회요청"/>
+        </div>
+    </form>
+</html>

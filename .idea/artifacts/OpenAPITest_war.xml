@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="OpenAPITest:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="OpenAPITest-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="OpenAPITest:war exploded" />
+    </root>
+  </artifact>
+</component>
